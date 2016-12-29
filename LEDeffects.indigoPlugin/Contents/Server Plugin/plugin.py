@@ -97,27 +97,6 @@ class Plugin(indigo.PluginBase):
     def updatePlugin(self):
         self.updater.update()
 
-    def DOESNTEXISTrunConcurrentThread(self):
-
-        try:
-
-
-            while True:
-
-
-                self.debugLog(u" ")
-
-                for dev in indigo.devices.itervalues('self'):
-
-                    self.debugLog(u"MainLoop:  {0}:".format(dev.name))
-
-
-                self.sleep(60)
-
-        except self.StopThread:
-            self.debugLog(u'Restarting/or error. Stopping thread.')
-            pass
-
     def shutdown(self):
 
          self.debugLog(u"shutdown() method called.")
@@ -153,7 +132,7 @@ class Plugin(indigo.PluginBase):
 
          self.debugLog(u'setStates to nil run')
 
-    def speakCallerNumber(self,pluginAction):
+    def setLEDeffect(self,pluginAction):
 
         self.logger.debug(str(pluginAction))
 
@@ -229,73 +208,6 @@ class Plugin(indigo.PluginBase):
 
 
         return theList
-
-    def refreshDataAction(self, valuesDict):
-        """
-        The refreshDataAction() method refreshes data for all devices based on
-        a plugin menu call.
-        """
-
-        self.debugLog(u"refreshDataAction() method called.")
-        self.refreshData()
-        return True
-
-    def refreshData(self):
-        """
-        The refreshData() method controls the updating of all plugin
-        devices.
-        """
-
-        self.debugLog(u"refreshData() method called.")
-
-        try:
-            # Check to see if there have been any devices created.
-            if indigo.devices.itervalues(filter="self"):
-
-                self.debugLog(u"Updating data...")
-
-                for dev in indigo.devices.itervalues(filter="self"):
-                    self.refreshDataForDev(dev)
-
-            else:
-                indigo.server.log(u"No Enphase Client devices have been created.")
-
-            return True
-
-        except Exception as error:
-            self.errorLog(u"Error refreshing devices. Please check settings.")
-            self.errorLog(unicode(error.message))
-            return False
-
-    def refreshDataForDev(self, dev):
-
-        if dev.configured:
-
-            self.debugLog(u"Found configured device: {0}".format(dev.name))
-
-            if dev.enabled:
-
-                self.debugLog(u"   {0} is enabled.".format(dev.name))
-                timeDifference = int(t.time() - t.mktime(dev.lastChanged.timetuple()))
-
-            else:
-
-                 self.debugLog(u"    Disabled: {0}".format(dev.name))
-
-
-    def refreshDataForDevAction(self, valuesDict):
-        """
-        The refreshDataForDevAction() method refreshes data for a selected device based on
-        a plugin menu call.
-        """
-
-        self.debugLog(u"refreshDataForDevAction() method called.")
-
-        dev = indigo.devices[valuesDict.deviceId]
-
-        self.refreshDataForDev(dev)
-        return True
-
 
     def toggleDebugEnabled(self):
         """

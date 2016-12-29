@@ -2,7 +2,7 @@
 <Actions>
     <Action id="SetLEDMode" deviceFilter="indigo.dimmer,indigo.zwave,props.SupportsColor">
         <Name>Set LED Mode</Name>
-        <CallbackMethod>speakCallerNumber</CallbackMethod>
+        <CallbackMethod>setLEDeffect</CallbackMethod>
     <ConfigUI>
 			<Field id="ledEffect" type="menu">
 				<Label>LED Effect:</Label>
@@ -10,7 +10,7 @@
 				<List class="self" method="uiEffects"></List>
 			</Field>
 			<Field id="label0" type="label" alignWithControl="true" fontColor="darkgray" fontSize="small">
-				<Label>Set the mode for the Device
+				<Label>Set the LED Effect mode for the Selected Device
 				</Label>
 			</Field>
 			<Field id="description" type="textfield" hidden="true">
