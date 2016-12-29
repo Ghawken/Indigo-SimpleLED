@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Actions>
+    <Action id="SetLEDMode" deviceFilter="indigo.dimmer,indigo.zwave,props.SupportsColor">
+        <Name>Set LED Mode</Name>
+        <CallbackMethod>speakCallerNumber</CallbackMethod>
+    <ConfigUI>
+			<Field id="ledEffect" type="menu">
+				<Label>LED Effect:</Label>
+				<Description>Select the Effect to start.</Description>
+				<List class="self" method="uiEffects"></List>
+			</Field>
+			<Field id="label0" type="label" alignWithControl="true" fontColor="darkgray" fontSize="small">
+				<Label>Set the mode for the Device
+				</Label>
+			</Field>
+			<Field id="description" type="textfield" hidden="true">
+				<Label></Label>
+			</Field>
+		</ConfigUI>
+
+    </Action>
+
+  
+</Actions>
+
