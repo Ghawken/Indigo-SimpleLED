@@ -3,7 +3,7 @@ Hi all,
 Announcing a very simple new Plugin - 
 **LED Simple Effects**
 
-[url]https://github.com/Ghawken/Indigo-SimpleLED[/url]
+https://github.com/Ghawken/Indigo-SimpleLED
 
 Enables the Fibaro RGBW pre-programmed color cycles to be selected as an Action Group.
 [size=85](yes, yes - you can do this already with Z-wave modify config action command - once you know the parameters and the settings -  however this simplifies the process)[/size]
