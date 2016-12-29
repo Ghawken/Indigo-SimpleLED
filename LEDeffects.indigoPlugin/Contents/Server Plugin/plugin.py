@@ -46,7 +46,7 @@ class Plugin(indigo.PluginBase):
             self.logLevel = logging.INFO
 
         self.indigo_log_handler.setLevel(self.logLevel)
-        self.logger.debug(u"logLevel = " + str(self.logLevel))
+        self.logger.debug(u"logLevel = " + unicode(self.logLevel))
 
         self.debugLog(u"Initializing plugin.")
 
@@ -134,7 +134,7 @@ class Plugin(indigo.PluginBase):
 
     def setLEDeffect(self,pluginAction):
 
-        self.logger.debug(str(pluginAction))
+        self.logger.debug(unicode(pluginAction))
 
         command = pluginAction.props.get('ledEffect', False)
 
@@ -142,9 +142,9 @@ class Plugin(indigo.PluginBase):
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
         zwMinor = int(dev.ownerProps['zwAppVersMinor'])
-        self.logger.debug(u'Device Model is:'+str(dev.model))
+        self.logger.debug(u'Device Model is:'+unicode(dev.model))
 
-        self.logger.debug(u'Firmware equals:'+str(zwMajor) + "."+str(zwMinor))
+        self.logger.debug(u'Firmware equals:'+unicode(zwMajor) + "."+unicode(zwMinor))
 
         if not command:
             self.logger.error(u"No Remote Button was specified in action for \"" + dev.name + "\"")
@@ -155,31 +155,31 @@ class Plugin(indigo.PluginBase):
 
         if dev.model == 'RGBW Controller (FGRGBWM)':  #Double check!
             if command=="Rainbow":
-                self.logger.debug(u'Rainbow Set on device:'+str(dev.name))
+                self.logger.debug(u'Rainbow Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=8)
             if command=="Fireplace":
-                self.logger.debug(u'FirePlace Set on device:'+str(dev.name))
+                self.logger.debug(u'FirePlace Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=6)
             if command=="Storm":
-                self.logger.debug(u'Storm Set on device:'+str(dev.name))
+                self.logger.debug(u'Storm Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=7)
             if command=="Aurora":
-                self.logger.debug(u'Aurora Set on device:'+str(dev.name))
+                self.logger.debug(u'Aurora Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=9)
             if command=="LPD":
-                self.logger.debug(u'LPD Set on device:'+str(dev.name))
+                self.logger.debug(u'LPD Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=10)
             if command=="Default":
-                self.logger.debug(u'Default Set on device:'+str(dev.name))
+                self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=1)
 
 
         if dev.model == 'RGBW LED Bulb (ZW098)':
-            if command=="Rainbow-Fast":
-                self.logger.debug(u'Rainbow-Fast Set on device:'+str(dev.name))
-                indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=65537)
+            if command=="Rainbow-Fast-Coming Soon":
+                self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
+                #indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=65537)
             if command == "Default":
-                self.logger.debug(u'Default Set on device:'+str(dev.name))
+                self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
 
         return
@@ -188,11 +188,11 @@ class Plugin(indigo.PluginBase):
 
         theList = list()
         device = indigo.devices[deviceId]
-        #self.logger.debug(u'Device Details'+str(device))
-        #self.logger.debug(str(device.model))
+        #self.logger.debug(u'Device Details'+unicode(device))
+        #self.logger.debug(unicode(device.model))
 
         if device.model =='RGBW Controller (FGRGBWM)':
-            self.logger.debug(str(device.model))
+            self.logger.debug(unicode(device.model))
             theList.append("Rainbow")
             theList.append("Fireplace")
             theList.append("Storm")
@@ -202,7 +202,7 @@ class Plugin(indigo.PluginBase):
 
 
         if device.model == 'RGBW LED Bulb (ZW098)':
-            self.logger.debug(str(device.model))
+            self.logger.debug(unicode(device.model))
             #theList.append("Rainbow-Fast")  #
             theList.append("Default")
 
