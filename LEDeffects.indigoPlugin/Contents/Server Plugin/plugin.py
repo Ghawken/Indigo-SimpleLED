@@ -137,17 +137,33 @@ class Plugin(indigo.PluginBase):
         self.logger.debug(unicode(pluginAction))
 
         command = pluginAction.props.get('ledEffect', False)
+        # A List of colours exists with ever device sent - so need to check device needs the list
 
+        #Get colours list
+        # concert to int via map
+        # sum to get total - which is parameter 38 for those that need it
+
+        colourslist = []
+        colourslist = pluginAction.props.get('colours', 0)
+        colourslist = map(int, colourslist)
+        coloursparam = sum(colourslist)
+        if coloursparam <= 0:
+            coloursparam = 2271560481
+            # If no colours selected - shouldn't run parameter 38 change
+            # but set it to default in case it does
+            self.logger.debug(u'Setting Colours Param to default')
+
+        self.logger.debug(u'Selected Colours Parameter equals:'+unicode(coloursparam))
+        self.logger.debug(unicode(colourslist))
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
         zwMinor = int(dev.ownerProps['zwAppVersMinor'])
         self.logger.debug(u'Device Model is:'+unicode(dev.model))
-
         self.logger.debug(u'Firmware equals:'+unicode(zwMajor) + "."+unicode(zwMinor))
 
         if not command:
-            self.logger.error(u"No Remote Button was specified in action for \"" + dev.name + "\"")
+            self.logger.error(u"No Command to Execute was specified in action for \"" + dev.name + "\"")
             return False
         if not indigo.zwave.isEnabled():
             self.logger.error(u'Z-Wave Interface has to be enabled')
@@ -173,39 +189,76 @@ class Plugin(indigo.PluginBase):
                 self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=1)
 
-
+# add firmware check for Aeon Bulbs
         if dev.model == 'RGBW LED Bulb (ZW098)':
-            if command=="Rainbow-Fast-Coming Soon":
-                self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
-                #indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=65537)
-            if command == "Default":
-                self.logger.debug(u'Default Set on device:'+unicode(dev.name))
-                indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
+            if int(zwMinor)==4:   # select firmware 1.4
+                if command=="Rainbow-Fast":
+                    self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=2164286484)
+                if command == "Rainbow-Slow":
+                    self.logger.debug(u'Rainbow-Slower Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=2164286564)
+                    #indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=6291457)
+                if command == "Random-Fast":
+                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=2197840916)
+                if command == "Random-Slow":
+                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=2197840996 )
+
+                        # indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=6291457)
+                if command == "Default":
+                    self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=2271560481)
+            if int(zwMinor)==5:   # select firmware 1.5 ?
+                if command=="Rainbow-Fast":
+                    self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265374 )
+                if command == "Rainbow-Slow":
+                    self.logger.debug(u'Rainbow-Slower Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265310)
+                if command == "Default":
+                    self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=6488064)
 
         return
 
     def uiEffects(self, filter, valuesDict, typeId, deviceId):
 
-        theList = list()
+        theList = []
         device = indigo.devices[deviceId]
         #self.logger.debug(u'Device Details'+unicode(device))
         #self.logger.debug(unicode(device.model))
+        zwMajor = int(device.ownerProps['zwAppVersMajor'])
+        zwMinor = int(device.ownerProps['zwAppVersMinor'])
+
+        self.logger.debug(u'Device Model is:'+unicode(device.model))
+        self.logger.debug(u'Firmware equals:'+unicode(zwMajor) + "."+unicode(zwMinor))
 
         if device.model =='RGBW Controller (FGRGBWM)':
             self.logger.debug(unicode(device.model))
-            theList.append("Rainbow")
-            theList.append("Fireplace")
-            theList.append("Storm")
-            theList.append("Aurora")
-            theList.append("LPD")
-            theList.append("Default")
+            theList.append(("Rainbow","Rainbow"))
+            theList.append(("Fireplace","Fireplace"))
+            theList.append(("Storm","Storm"))
+            theList.append(("Aurora","Aurora"))
+            theList.append(("LPD","LPD"))
+            theList.append(("Default","Default"))
 
 
         if device.model == 'RGBW LED Bulb (ZW098)':
-            self.logger.debug(unicode(device.model))
-            #theList.append("Rainbow-Fast")  #
-            theList.append("Default")
-
+            if int(zwMinor) == 4:  # only for firmware 1.4 versions
+                self.logger.debug(unicode(device.model))
+                theList.append(("Rainbow-Fast","Rainbow-Fast"))  #
+                theList.append(("Rainbow-Slow","Rainbow-Slow"))
+                theList.append(('Random-Fast','Random-Fast'))
+                theList.append(('Random-Slow','Random-Slow'))
+                theList.append(("Default","Default"))
+            if int(zwMinor) == 5:  # only for firmware 1.6 versions
+                self.logger.debug(unicode(device.model))
+                theList.append(("Rainbow-Fast","Rainbow-Fast"))  #
+                theList.append(("Rainbow-Slow","Rainbow-Slow"))
+                theList.append(("Default","Default"))
 
         return theList
 
