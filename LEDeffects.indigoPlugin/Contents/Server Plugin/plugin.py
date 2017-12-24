@@ -139,14 +139,12 @@ class Plugin(indigo.PluginBase):
         command = pluginAction.props.get('ledEffect', False)
         # A List of colours exists with ever device sent - so need to check device needs the list
         self.logger.debug(unicode(command))
-        #Get colours list
+        #   Get colours list
         # concert to int via map
         # sum to get total - which is parameter 38 for those that need it
-
         self.logger.debug(u'Setting colorsparam to default 2271560481')
         coloursparam = 2271560481
-
-        if command=='Choose-Colours-Fast' or 'Choose-Colours-Slow':
+        if command in ['Choose-Colours-Fast','Choose-Colours-Slow']:
             self.logger.debug(u'Setting Colours and ColourParam based on selected colors')
             colourslist = []
             colourslist = pluginAction.props.get('Selectedcolours', 0)
@@ -157,13 +155,8 @@ class Plugin(indigo.PluginBase):
             # If no colours selected - shouldn't run parameter 38 change
             # but set it to default in case it does
                 self.logger.debug(u'Setting Colours Param to default')
-
             self.logger.debug(u'Selected Colours Parameter equals:'+unicode(coloursparam))
             self.logger.debug(unicode(colourslist))
-
-
-
-
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
