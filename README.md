@@ -3,7 +3,9 @@ Hi all,
 Announcing a very simple new Plugin - 
 **LED Simple Effects**
 
-https://github.com/Ghawken/Indigo-SimpleLED
+**For Indigo 7**
+
+[url]https://github.com/Ghawken/Indigo-SimpleLED[/url]
 
 Enables the Fibaro RGBW pre-programmed color cycles to be selected as an Action Group.
 [size=85](yes, yes - you can do this already with Z-wave modify config action command - once you know the parameters and the settings -  however this simplifies the process)[/size]
@@ -19,6 +21,16 @@ The image below are the current options - essentially for the Fibaro RGB only cu
 
 
 These are the pre-programmed Fibaro modes - so there is no Z-wave communication during the light changes - simply this command to start and/or end the process.   In my mind the various default modes cover most basic usages and limits any Z-wave traffic issues that might occur with other solutions.
+
+***Update 0.0.6***
+
+As promised support for Aeon Labs RGB Bulbs (ZW098)
+
+Similar Modes but also add dialog for colour chooser/selected see below
+
+![](https://s14.postimg.org/fbtwwsan5/Rainbow-_Fast.png)
+
+![](https://s14.postimg.org/bfgl0shxt/Choose-_Colours-_Fast.png)
 
 
 Glenn
