@@ -19,9 +19,9 @@
   			<Field id="sep6" type="separator"/>
 			<Field id="label10" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="Selectedcolours" visibleBindingValue="true"  >
 				<Label>
-				</Label>
+                </Label>
 			</Field>
-					<Field id="label11" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="Selectedcolours" visibleBindingValue="true"  > >
+			<Field id="label11" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="Selectedcolours" visibleBindingValue="true"  > >
 				<Label>
 				</Label>
 			</Field>
@@ -29,6 +29,22 @@
 				<Label>
 				</Label>
 			</Field>
+			<Field id="label211" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="ledEffect" visibleBindingValue="Rainbow-Fast,Rainbow-Slow,Random-Slow,Random-Fast,Default"  > >
+				<Label>
+
+                </Label>
+			</Field>
+					<Field id="label212" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="ledEffect" visibleBindingValue="Rainbow-Fast,Rainbow-Slow,Random-Slow,Random-Fast,Default"  >>
+				<Label>
+
+
+                    Select Options Above
+
+
+
+                </Label>
+			</Field>
+
 
 		    <Field id="Selectedcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colours-Fast,Choose-Colours-Slow" >
 				<List>
