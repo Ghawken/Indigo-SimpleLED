@@ -138,23 +138,32 @@ class Plugin(indigo.PluginBase):
 
         command = pluginAction.props.get('ledEffect', False)
         # A List of colours exists with ever device sent - so need to check device needs the list
-
+        self.logger.debug(unicode(command))
         #Get colours list
         # concert to int via map
         # sum to get total - which is parameter 38 for those that need it
 
-        colourslist = []
-        colourslist = pluginAction.props.get('colours', 0)
-        colourslist = map(int, colourslist)
-        coloursparam = sum(colourslist)
-        if coloursparam <= 0:
-            coloursparam = 2271560481
+        self.logger.debug(u'Setting colorsparam to default 2271560481')
+        coloursparam = 2271560481
+
+        if command=='Choose-Colours-Fast' or 'Choose-Colours-Slow':
+            self.logger.debug(u'Setting Colours and ColourParam based on selected colors')
+            colourslist = []
+            colourslist = pluginAction.props.get('Selectedcolours', 0)
+            colourslist = map(int, colourslist)
+            coloursparam = sum(colourslist)
+            if coloursparam <= 0:
+                coloursparam = 2271560481
             # If no colours selected - shouldn't run parameter 38 change
             # but set it to default in case it does
-            self.logger.debug(u'Setting Colours Param to default')
+                self.logger.debug(u'Setting Colours Param to default')
 
-        self.logger.debug(u'Selected Colours Parameter equals:'+unicode(coloursparam))
-        self.logger.debug(unicode(colourslist))
+            self.logger.debug(u'Selected Colours Parameter equals:'+unicode(coloursparam))
+            self.logger.debug(unicode(colourslist))
+
+
+
+
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
@@ -194,19 +203,36 @@ class Plugin(indigo.PluginBase):
             if int(zwMinor)==4:   # select firmware 1.4
                 if command=="Rainbow-Fast":
                     self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
-                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=2164286484)
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=16782386)
+                    # send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Rainbow-Slow":
                     self.logger.debug(u'Rainbow-Slower Set on device:' + unicode(dev.name))
-                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=2164286564)
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=16782436)
                     #indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=6291457)
+                    # send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=coloursparam)
                 if command == "Random-Fast":
                     self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
-                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=2197840916)
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=50336818 )
+                    # send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Random-Slow":
                     self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
-                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=2197840996 )
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=50336868 )
+                    #send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
+                if command == "Choose-Colours-Fast":
+                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=33559602  )
+                    # send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
+                if command == "Choose-Colours-Slow":
+                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=33559652 )
+                    #send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
 
-                        # indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=6291457)
                 if command == "Default":
                     self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
@@ -215,6 +241,7 @@ class Plugin(indigo.PluginBase):
                 if command=="Rainbow-Fast":
                     self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265374 )
+                    # send the selected colours - so mode above and colour choice below.
                 if command == "Rainbow-Slow":
                     self.logger.debug(u'Rainbow-Slower Set on device:' + unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265310)
@@ -249,15 +276,17 @@ class Plugin(indigo.PluginBase):
         if device.model == 'RGBW LED Bulb (ZW098)':
             if int(zwMinor) == 4:  # only for firmware 1.4 versions
                 self.logger.debug(unicode(device.model))
-                theList.append(("Rainbow-Fast","Rainbow-Fast"))  #
+                theList.append(("Rainbow-Fast","Rainbow-Fast"))
                 theList.append(("Rainbow-Slow","Rainbow-Slow"))
                 theList.append(('Random-Fast','Random-Fast'))
                 theList.append(('Random-Slow','Random-Slow'))
+                theList.append(('Choose-Colours-Fast','Choose-Colours-Fast'))
+                theList.append(('Choose-Colours-Slow','Choose-Colours-Slow'))
                 theList.append(("Default","Default"))
             if int(zwMinor) == 5:  # only for firmware 1.6 versions
                 self.logger.debug(unicode(device.model))
-                theList.append(("Rainbow-Fast","Rainbow-Fast"))  #
-                theList.append(("Rainbow-Slow","Rainbow-Slow"))
+                theList.append(("colours","Rainbow-Fast"))  #
+                theList.append(("colours","Rainbow-Slow"))
                 theList.append(("Default","Default"))
 
         return theList

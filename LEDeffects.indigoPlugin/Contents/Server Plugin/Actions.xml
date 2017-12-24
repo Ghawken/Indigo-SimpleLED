@@ -16,7 +16,37 @@
 			<Field id="description" type="textfield" hidden="true">
 				<Label></Label>
 			</Field>
-		</ConfigUI>
+  			<Field id="sep6" type="separator"/>
+			<Field id="label10" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="Selectedcolours" visibleBindingValue="true"  >
+				<Label>
+				</Label>
+			</Field>
+					<Field id="label11" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="Selectedcolours" visibleBindingValue="true"  > >
+				<Label>
+				</Label>
+			</Field>
+					<Field id="label12" type="label" alignWithControl="true" fontColor="darkgray" fontSize="large" visibleBindingId="Selectedcolours" visibleBindingValue="true"  >>
+				<Label>
+				</Label>
+			</Field>
+
+		    <Field id="Selectedcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colours-Fast,Choose-Colours-Slow" >
+				<List>
+					<Option value="1">Red</Option>
+					<Option value="32">Orange</Option>
+					<Option value="768">Yellow</Option>
+					<Option value="16384">Green</Option>
+					<Option value="327680">Cyan</Option>
+					<Option value="6291456">Blue</Option>
+					<Option value="117440512">Violet</Option>
+					<Option value="2147483648">Pinkish</Option>
+				</List>
+				<Label>Colours</Label>
+			</Field>
+
+  			<Field id="sep7" type="separator"/>
+
+	</ConfigUI>
 
     </Action>
 
