@@ -12,6 +12,7 @@ import urllib2
 import os
 import shutil
 import logging
+import struct
 
 from ghpu import GitHubPluginUpdater
 
@@ -144,6 +145,7 @@ class Plugin(indigo.PluginBase):
         # sum to get total - which is parameter 38 for those that need it
         self.logger.debug(u'Setting colorsparam to default 2271560481')
         coloursparam = 2271560481
+
         if command in ['Choose-Colours-Fast','Choose-Colours-Slow']:
             self.logger.debug(u'Setting Colours and ColourParam based on selected colors')
             colourslist = []
@@ -154,9 +156,25 @@ class Plugin(indigo.PluginBase):
                 coloursparam = 2271560481
             # If no colours selected - shouldn't run parameter 38 change
             # but set it to default in case it does
-                self.logger.debug(u'Setting Colours Param to default')
+                self.logger.debug(u'Setting Colours Param Variable to default'+unicode(coloursparam))
             self.logger.debug(u'Selected Colours Parameter equals:'+unicode(coloursparam))
             self.logger.debug(unicode(colourslist))
+        # Now for LED Strip
+
+        if command == "Choose-Colour-Options":
+            self.logger.debug(u'Choose Colours Options : Setting Colours and ColourParam based on selected colors')
+            colourslist = []
+            colourslist = pluginAction.props.get('Stripcolours', 0)
+            colourslist = map(int, colourslist)
+            coloursparam = sum(colourslist)
+            if coloursparam <= 0:
+                coloursparam = 805306368
+                # If no colours selected - shouldn't run parameter 38 change
+                # but set it to default in case it does
+                self.logger.debug(u'Setting Colours Param Variable to default' + unicode(coloursparam))
+            self.logger.debug(u'Selected Colours Parameter equals:' + unicode(coloursparam))
+            self.logger.debug(unicode(colourslist))
+
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
@@ -191,7 +209,27 @@ class Plugin(indigo.PluginBase):
                 self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=1)
 
-# add firmware check for Aeon Bulbs
+        if dev.model == 'RGBW LED Strip (ZW121)':
+            if command=="Rainbow":
+                self.logger.debug(u'Rainbow Set on device:'+unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=40,paramSize=1,paramValue=1)
+            if command == "Choose-Colour-Options":
+                self.logger.debug(u'Choose Colours Set on device:' + unicode(dev.name))
+                #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
+                self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=33554432)
+                self.sleep(1)
+                # send the selected colours - so mode above and colour choice below.
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=coloursparam)
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=40, paramSize=1,paramValue=2)
+            if command=="Default":
+                self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=40,paramSize=1,paramValue=0)
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=157483008)
+                #indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=50332416)
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=805306368)
+                indigo.device.turnOff(device=indigo.devices[devId])
+            # add firmware check for Aeon Bulbs
         if dev.model == 'RGBW LED Bulb (ZW098)':
             if int(zwMinor)==4:   # select firmware 1.4
                 if command=="Rainbow-Fast":
@@ -225,7 +263,6 @@ class Plugin(indigo.PluginBase):
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=33559652 )
                     #send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
-
                 if command == "Default":
                     self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
@@ -265,6 +302,11 @@ class Plugin(indigo.PluginBase):
             theList.append(("LPD","LPD"))
             theList.append(("Default","Default"))
 
+        if device.model == 'RGBW LED Strip (ZW121)':
+            self.logger.debug(unicode(device.model))
+            theList.append(("Rainbow","Rainbow & Turn On"))
+            theList.append(('Choose-Colour-Options', 'Choose-Colour-Options'))
+            theList.append(("Default","Default & Turn Off"))
 
         if device.model == 'RGBW LED Bulb (ZW098)':
             if int(zwMinor) == 4:  # only for firmware 1.4 versions
