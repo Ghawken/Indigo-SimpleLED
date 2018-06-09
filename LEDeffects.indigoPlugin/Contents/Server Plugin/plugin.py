@@ -222,6 +222,25 @@ class Plugin(indigo.PluginBase):
                 # send the selected colours - so mode above and colour choice below.
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=coloursparam)
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=40, paramSize=1,paramValue=2)
+            if command == "Rainbow-2 & Turn On":
+                self.logger.debug(u'"Rainbow-2 & Turn On" Set on device:' + unicode(dev.name))
+                #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
+                self.logger.debug(u'ColoursParam is :'+unicode(coloursparam))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=150994944 )
+                self.sleep(1)
+            if command == "Rainbow-Slow Fade":
+                self.logger.debug(u'Rainbow-Slow Fade Set on device:' + unicode(dev.name))
+                #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
+                self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=1224736847 )
+                self.sleep(1)
+            if command == "Rainbow-Medium Fade":
+                self.logger.debug(u'Rainbow-Medium Fade Set on device:' + unicode(dev.name))
+                #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
+                self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=1224736815)
+                self.sleep(1)
+
             if command=="Default":
                 self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=40,paramSize=1,paramValue=0)
@@ -305,6 +324,9 @@ class Plugin(indigo.PluginBase):
         if device.model == 'RGBW LED Strip (ZW121)':
             self.logger.debug(unicode(device.model))
             theList.append(("Rainbow","Rainbow & Turn On"))
+            theList.append(("Rainbow-2", "Rainbow-2 & Turn On"))
+            theList.append(("Rainbow-Slow Fade", "Rainbow-Slow Fade & Turn On"))
+            theList.append(("Rainbow-Medium Fade", "Rainbow-Medium Fade & Turn On"))
             theList.append(('Choose-Colour-Options', 'Choose-Colour-Options'))
             theList.append(("Default","Default & Turn Off"))
 
