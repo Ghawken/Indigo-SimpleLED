@@ -128,11 +128,6 @@ class Plugin(indigo.PluginBase):
         return True, valuesDict
 
 
-
-    def setStatestonil(self, dev):
-
-         self.debugLog(u'setStates to nil run')
-
     def setLEDeffect(self,pluginAction):
 
         self.logger.debug(unicode(pluginAction))
@@ -161,12 +156,26 @@ class Plugin(indigo.PluginBase):
             self.logger.debug(unicode(colourslist))
         # Now for LED Strip
 
-        if command == "Choose-Colour-Options":
+        if command == "Choose-Colour-Options" or command=='Choose-Colours-Smooth' or command=='Choose-Colours-Fade':
+
+            # Hexadecimal colour chooser
+            # 12300000 = Red/Orange/Yellow
+            # 14700000 = Red/Green/Colour Number 7
             self.logger.debug(u'Choose Colours Options : Setting Colours and ColourParam based on selected colors')
             colourslist = []
             colourslist = pluginAction.props.get('Stripcolours', 0)
             colourslist = map(int, colourslist)
-            coloursparam = sum(colourslist)
+
+            colourstring =''
+            #coloursparam = sum(colourslist)
+            # No not sum here - construct hex and pad out to 8 digits then convert
+            for item in colourslist:
+                colourstring = str(colourstring) + str(item)
+            colourstring = colourstring.ljust(8,'0');
+            self.logger.debug('ColourString Equals:'+unicode(colourstring))
+
+            coloursparam = int(colourstring,16)
+
             if coloursparam <= 0:
                 coloursparam = 805306368
                 # If no colours selected - shouldn't run parameter 38 change
@@ -298,6 +307,18 @@ class Plugin(indigo.PluginBase):
                 if command == "Default":
                     self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=6488064)
+                if command == "Choose-Colours-Smooth":
+                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=40042528 )
+                    #send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=50593791)
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=coloursparam)
+                if command == "Choose-Colours-Fade":
+                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue= 42630020 )
+                    # send the selected colours - so mode above and colour choice below.
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=50593791)
+                    indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,  paramValue=coloursparam)
 
         return
 
@@ -345,6 +366,8 @@ class Plugin(indigo.PluginBase):
                 self.logger.debug(unicode(device.model))
                 theList.append(("Rainbow-Fast","Rainbow-Fast"))  #
                 theList.append(("Rainbow-Slow","Rainbow-Slow"))
+                theList.append(('Choose-Colours-Smooth','Choose-Colours-Smooth'))
+                theList.append(('Choose-Colours-Smooth', 'Choose-Colours-Smooth'))
                 theList.append(("Default","Default"))
 
         return theList
