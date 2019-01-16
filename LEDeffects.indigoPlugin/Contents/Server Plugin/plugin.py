@@ -341,7 +341,7 @@ class Plugin(indigo.PluginBase):
                 theList.append(('Choose-Colours-Fast','Choose-Colours-Fast'))
                 theList.append(('Choose-Colours-Slow','Choose-Colours-Slow'))
                 theList.append(("Default","Default"))
-            if int(zwMinor) == 5:  # only for firmware 1.6 versions
+            if int(zwMinor) >= 5:  # only for firmware 1.6 versions
                 self.logger.debug(unicode(device.model))
                 theList.append(("colours","Rainbow-Fast"))  #
                 theList.append(("colours","Rainbow-Slow"))
