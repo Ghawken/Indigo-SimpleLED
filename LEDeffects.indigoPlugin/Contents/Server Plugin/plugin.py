@@ -176,7 +176,6 @@ class Plugin(indigo.PluginBase):
             self.logger.debug(unicode(colourslist))
 
 
-
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
