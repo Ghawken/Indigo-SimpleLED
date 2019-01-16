@@ -175,6 +175,8 @@ class Plugin(indigo.PluginBase):
             self.logger.debug(u'Selected Colours Parameter equals:' + unicode(coloursparam))
             self.logger.debug(unicode(colourslist))
 
+
+
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
@@ -241,7 +243,6 @@ class Plugin(indigo.PluginBase):
                 self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=1224736815)
                 self.sleep(1)
-
             if command=="Default":
                 self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=40,paramSize=1,paramValue=0)
@@ -287,7 +288,7 @@ class Plugin(indigo.PluginBase):
                     self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=2271560481)
-            if int(zwMinor)==5:   # select firmware 1.5 ?
+            if int(zwMinor)>=5:   # select firmware 1.5 ?
                 if command=="Rainbow-Fast":
                     self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265374 )
