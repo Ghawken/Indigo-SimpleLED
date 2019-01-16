@@ -62,16 +62,16 @@
 
 		  <Field id="Stripcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colour-Options" >
 				<List>
-					<Option value="1">Pinkish</Option>
-					<Option value="16">Violet</Option>
-					<Option value="256">Blue</Option>
-					<Option value="4096">Cyan</Option>
-					<Option value="65536">Green</Option>
-					<Option value="1048576">Yellow</Option>
-					<Option value="1677216">Orange</Option>
-					<Option value="26835456">Red</Option>
+					<Option value="8">Pinkish</Option>
+					<Option value="112">Violet</Option>
+					<Option value="1536">Blue</Option>
+					<Option value="20480">Cyan</Option>
+					<Option value="262144">Green</Option>
+					<Option value="3145728">Yellow</Option>
+					<Option value="33554432">Orange</Option>
+					<Option value="268435456">Red</Option>
 
-
+					
 
 
 
