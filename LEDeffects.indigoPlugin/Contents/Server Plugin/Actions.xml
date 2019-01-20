@@ -100,29 +100,29 @@
 				</List>
 				<Label>Colour Display Cycle</Label>
 			</Field>
-		<Field id="BParameter37-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+		<Field id="BParameter37-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="99" visibleBindingValue="All-Options" >
 				<Label>Brightness from 1 to 99</Label>
 			</Field>
-		<Field id="BParameter37-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+		<Field id="BParameter37-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Cycle Count 0 Unlimited, Max 254</Label>
 			</Field>
 		<Field id="BParameter37-Value4a" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
 				<Label>tme Base of Color change 0 = 1ms, 1 = 10ms, 2 = 100ms</Label>
 			</Field>
 
-		<Field id="BParameter37-Value4b" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+		<Field id="BParameter37-Value4b" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Colour Change Speed Level 0 Constant, 1 to 30 fastest, 31 inactive</Label>
 			</Field>
-			<Field id="BParameter38-Value1" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+			<Field id="BParameter38-Value1" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Speed from OFF to ON: 0 Fastest, 125 slowest</Label>
 			</Field>
-					<Field id="BParameter38-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+					<Field id="BParameter38-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect"defaultValue="0"  visibleBindingValue="All-Options" >
 				<Label>Speed from ON to OFF: 0 Fastest, 125 slowest</Label>
 			</Field>
-					<Field id="BParameter38-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+					<Field id="BParameter38-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Pause time of ON: 0 Fastest, 125 slowest</Label>
 			</Field>
-					<Field id="BParameter38-Value4" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+					<Field id="BParameter38-Value4" type="textfield" alignWithControl='true' visibleBindingId="ledEffect"  defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Pause time of OFF: 0 Fastest, 125 slowest</Label>
 			</Field>
 
@@ -132,13 +132,13 @@
 	</Label>
   </Field>
 
-		   <Field id="BParameter39-Red" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+		   <Field id="BParameter39-Red" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Red Value: 0 -255</Label>
 			</Field>
-									<Field id="BParameter39-Green" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+									<Field id="BParameter39-Green" type="textfield" alignWithControl='true' defaultValue="0" visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
 				<Label>Green Value: 0 -255</Label>
 			</Field>
-									<Field id="BParameter39-Blue" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+									<Field id="BParameter39-Blue" type="textfield" alignWithControl='true' defaultValue="0" visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
 				<Label>Blue Value: 0 -255</Label>
 			</Field>
 
