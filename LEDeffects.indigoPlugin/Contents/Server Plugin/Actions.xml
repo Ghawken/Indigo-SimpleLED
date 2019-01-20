@@ -116,7 +116,7 @@
 			<Field id="BParameter38-Value1" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Speed from OFF to ON: 0 Fastest, 125 slowest</Label>
 			</Field>
-					<Field id="BParameter38-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect"defaultValue="0"  visibleBindingValue="All-Options" >
+					<Field id="BParameter38-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0"  visibleBindingValue="All-Options" >
 				<Label>Speed from ON to OFF: 0 Fastest, 125 slowest</Label>
 			</Field>
 					<Field id="BParameter38-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
