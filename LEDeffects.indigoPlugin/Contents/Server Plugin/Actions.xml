@@ -52,9 +52,103 @@
 
                 </Label>
 			</Field>
+ 			<Field id="Parameter37-Value1a" type="menu" rows="4" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+				<List>
+					<Option value="0">Smooth Colour</Option>
+					<Option value="1">Fast/Direct Colour</Option>
+					<Option value="2">Fade in/Fade Out</Option>
+					<Option value="3">Inactive/keep current</Option>
+				</List>
+				<Label>Colour Transition Style</Label>
+			</Field>
 
+ 			<Field id="Parameter37-Value1b" type="menu" rows="5" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+				<List>
+					<Option value="0">Single Color Mode</Option>
+					<Option value="1">Rainbow Mode</Option>
+					<Option value="2">MultiColor Mode</Option>
+					<Option value="3">Random Mode</Option>
+					<Option value="15">Inactive/Keep Current</Option>
+				</List>
+				<Label>Colour Display Cycle</Label>
+			</Field>
+		<Field id="Parameter37-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+				<Label>Cycle Count from 0 to 255</Label>
+			</Field>
+		<Field id="Parameter37-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+				<Label>Colour Change Speed 0 to 254 fastest</Label>
+			</Field>
+		<Field id="Parameter37-Value4" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+				<Label>Colour Residence Time from 0 to 254</Label>
+			</Field>
 
-		    <Field id="Selectedcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colours-Fast,Choose-Colours-Slow" >
+ 			<Field id="BParameter37-Value1a" type="menu" rows="4" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<List>
+					<Option value="0">Smooth Colour</Option>
+					<Option value="1">Fade in/Fade Out</Option>
+				</List>
+				<Label>Colour Transition Style</Label>
+			</Field>
+
+ 			<Field id="BParameter37-Value1b" type="menu" rows="5" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<List>
+					<Option value="4">Single Color Mode</Option>
+					<Option value="1">Rainbow Mode</Option>
+					<Option value="2">MultiColor Mode</Option>
+					<Option value="3">Random Mode</Option>
+					<Option value="0">Inactive/Keep Current</Option>
+				</List>
+				<Label>Colour Display Cycle</Label>
+			</Field>
+		<Field id="BParameter37-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Brightness from 1 to 99</Label>
+			</Field>
+		<Field id="BParameter37-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Cycle Count 0 Unlimited, Max 254</Label>
+			</Field>
+		<Field id="BParameter37-Value4a" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>tme Base of Color change 0 = 1ms, 1 = 10ms, 2 = 100ms</Label>
+			</Field>
+
+		<Field id="BParameter37-Value4b" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Colour Change Speed Level 0 Constant, 1 to 30 fastest, 31 inactive</Label>
+			</Field>
+			<Field id="BParameter38-Value1" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Speed from OFF to ON: 0 Fastest, 125 slowest</Label>
+			</Field>
+					<Field id="BParameter38-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Speed from ON to OFF: 0 Fastest, 125 slowest</Label>
+			</Field>
+					<Field id="BParameter38-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Pause time of ON: 0 Fastest, 125 slowest</Label>
+			</Field>
+					<Field id="BParameter38-Value4" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Pause time of OFF: 0 Fastest, 125 slowest</Label>
+			</Field>
+
+	  <Field id="space112" type="label" visibleBindingId="ledEffect" visibleBindingValue="All-Options">
+    <Label>
+		Below Only used if Single Colour Mode is Selected.
+	</Label>
+  </Field>
+
+		   <Field id="BParameter39-Red" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Red Value: 0 -255</Label>
+			</Field>
+									<Field id="BParameter39-Green" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Green Value: 0 -255</Label>
+			</Field>
+									<Field id="BParameter39-Blue" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+				<Label>Blue Value: 0 -255</Label>
+			</Field>
+
+	  <Field id="space11" type="label"  visibleBindingId="ledEffect" visibleBindingValue="All-Options">
+    <Label>
+		Below Only used if Multi Colour Mode is Selected.
+	</Label>
+  </Field>
+
+		    <Field id="Selectedcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colours-Fast,Choose-Colours-Slow,Full-Options" >
 				<List>
 					<Option value="1">Red</Option>
 					<Option value="32">Orange</Option>
@@ -68,7 +162,10 @@
 				<Label>Colours</Label>
 			</Field>
 
-		  <Field id="Stripcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colour-Options,Choose-Colour-Fade,Choose-Colour-Smooth" >
+
+
+
+		  <Field id="Stripcolours" type="list" rows="8" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Choose-Colour-Options,Choose-Colour-Fade,Choose-Colour-Smooth,All-Options" >
 				<List>
 					<Option value="1">Red</Option>
 <Option value="2">Orange</Option>
