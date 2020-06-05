@@ -6,7 +6,7 @@ Announcing a very simple new Plugin -
 **For Indigo 7**
 
 Supported Devices:
-- Fibaro RGBW Controller
+- Fibaro RGBW Controller, 441 Model and 442 Model
 - AeonLabs ZW098 bulbs Firmware 1.04, 1.05 and above
 - AeonLabs ZW121 Led Strips
 
