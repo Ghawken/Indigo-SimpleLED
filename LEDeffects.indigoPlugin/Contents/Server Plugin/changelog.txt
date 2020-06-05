@@ -1,0 +1,9 @@
+Changelog
+
+0.2.2
+Remove github update code checking
+
+0.2.1
+Update device naming of Fibaro RGB devices - old one is now 441, new one is 442
+Add support for 442 device - untested
+Minor code tidying

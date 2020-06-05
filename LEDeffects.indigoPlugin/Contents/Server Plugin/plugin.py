@@ -14,7 +14,7 @@ import shutil
 import logging
 import struct
 
-from ghpu import GitHubPluginUpdater
+#from ghpu import GitHubPluginUpdater
 
 try:
     import indigo
@@ -51,9 +51,9 @@ class Plugin(indigo.PluginBase):
 
         self.debugLog(u"Initializing plugin.")
 
-        self.updater = GitHubPluginUpdater(self)
-        self.configUpdaterInterval = self.pluginPrefs.get('configUpdaterInterval', 24)
-        self.configUpdaterForceUpdate = self.pluginPrefs.get('configUpdaterForceUpdate', False)
+    #    self.updater = GitHubPluginUpdater(self)
+     #   self.configUpdaterInterval = self.pluginPrefs.get('configUpdaterInterval', 24)
+    #    self.configUpdaterForceUpdate = self.pluginPrefs.get('configUpdaterForceUpdate', False)
 
 
 
@@ -88,15 +88,6 @@ class Plugin(indigo.PluginBase):
         self.debugLog(u"deviceStopComm() method called.")
         indigo.server.log(u"Stopping device: " + dev.name)
 
-    def forceUpdate(self):
-        self.updater.update(currentVersion='0.0.0')
-
-    def checkForUpdates(self):
-        if self.updater.checkForUpdate() == False:
-            indigo.server.log(u"No Updates are Available")
-
-    def updatePlugin(self):
-        self.updater.update()
 
     def shutdown(self):
 
@@ -104,18 +95,8 @@ class Plugin(indigo.PluginBase):
 
     def startup(self):
 
-        self.debugLog(u"Starting Plugin. startup() method called.")
+        self.debugLog(u"Starting Plugin. startup() method called.  Doing nothing until action Group called.")
 
-        # See if there is a plugin update and whether the user wants to be notified.
-        try:
-            if self.configUpdaterForceUpdate:
-                self.updatePlugin()
-
-            else:
-                self.checkForUpdates()
-            self.sleep(1)
-        except Exception as error:
-            self.errorLog(u"Update checker error: {0}".format(error))
 
     def validatePrefsConfigUi(self, valuesDict):
 
