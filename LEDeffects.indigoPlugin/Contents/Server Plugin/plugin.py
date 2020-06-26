@@ -370,7 +370,7 @@ class Plugin(indigo.PluginBase):
             if command=="Default":
                 self.logger.debug(u'Default Set on device:'+unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=1)
-        elif dev.model == "RGBW Controller (FGRGBWM442)":  # Double check!
+        elif dev.model == "RGBW Controller (FGRGBW442)":   # Double check!
             if command == "Rainbow":
                 self.logger.debug(u'Rainbow Set on device:' + unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=8)
@@ -390,6 +390,25 @@ class Plugin(indigo.PluginBase):
                 self.logger.debug(u'Default Set on device:' + unicode(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=0)
 
+        elif dev.model == "RGBW Controller (FGRGBWM442)":   # Double check!
+            if command == "Rainbow":
+                self.logger.debug(u'Rainbow Set on device:' + unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=8)
+            if command == "Fireplace":
+                self.logger.debug(u'FirePlace Set on device:' + unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=6)
+            if command == "Storm":
+                self.logger.debug(u'Storm Set on device:' + unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=7)
+            if command == "Aurora":
+                self.logger.debug(u'Aurora Set on device:' + unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=9)
+            if command == "LPD":
+                self.logger.debug(u'LPD Set on device:' + unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=10)
+            if command == "Default":
+                self.logger.debug(u'Default Set on device:' + unicode(dev.name))
+                indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=0)
 
         elif dev.model == 'RGBW LED Strip (ZW121)':
             if command=="Rainbow":
@@ -530,6 +549,14 @@ class Plugin(indigo.PluginBase):
             theList.append(("LPD","LPD"))
             theList.append(("Default","Default"))
         elif 'RGBW Controller (FGRGBWM441)' in device.model:  ## new version reported by Indigo of 441 Fibaro RGB
+            self.logger.debug(unicode(device.model))
+            theList.append(("Rainbow","Rainbow"))
+            theList.append(("Fireplace","Fireplace"))
+            theList.append(("Storm","Storm"))
+            theList.append(("Aurora","Aurora"))
+            theList.append(("LPD","LPD"))
+            theList.append(("Default","Default"))
+        elif 'RGBW Controller (FGRGBW442)' in device.model:  ## new 442 version reported by Indigo of 442 Fibaro RGB
             self.logger.debug(unicode(device.model))
             theList.append(("Rainbow","Rainbow"))
             theList.append(("Fireplace","Fireplace"))
