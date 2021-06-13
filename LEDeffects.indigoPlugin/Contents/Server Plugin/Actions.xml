@@ -52,7 +52,7 @@
 
                 </Label>
 			</Field>
- 			<Field id="Parameter37-Value1a" type="menu" rows="4" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+ 			<Field id="Parameter37-Value1a" type="menu" rows="4" defaultValue="0" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
 				<List>
 					<Option value="0">Smooth Colour</Option>
 					<Option value="1">Fast/Direct Colour</Option>
@@ -62,7 +62,7 @@
 				<Label>Colour Transition Style</Label>
 			</Field>
 
- 			<Field id="Parameter37-Value1b" type="menu" rows="5" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+ 			<Field id="Parameter37-Value1b" type="menu" rows="5" defaultValue="3" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
 				<List>
 					<Option value="0">Single Color Mode</Option>
 					<Option value="1">Rainbow Mode</Option>
@@ -72,17 +72,17 @@
 				</List>
 				<Label>Colour Display Cycle</Label>
 			</Field>
-		<Field id="Parameter37-Value2" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+		<Field id="Parameter37-Value2" type="textfield" defaultValue="0" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
 				<Label>Cycle Count from 0 to 255</Label>
 			</Field>
-		<Field id="Parameter37-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+		<Field id="Parameter37-Value3" type="textfield" defaultValue="0" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
 				<Label>Colour Change Speed 0 to 254 fastest</Label>
 			</Field>
-		<Field id="Parameter37-Value4" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
+		<Field id="Parameter37-Value4" type="textfield" defaultValue="0" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="Full-Options" >
 				<Label>Colour Residence Time from 0 to 254</Label>
 			</Field>
 
- 			<Field id="BParameter37-Value1a" type="menu" rows="4" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+ 			<Field id="BParameter37-Value1a" type="menu" rows="4" defaultValue="0" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
 				<List>
 					<Option value="0">Smooth Colour</Option>
 					<Option value="1">Fade in/Fade Out</Option>
@@ -90,7 +90,7 @@
 				<Label>Colour Transition Style</Label>
 			</Field>
 
- 			<Field id="BParameter37-Value1b" type="menu" rows="5" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+ 			<Field id="BParameter37-Value1b" type="menu" rows="5" defaultValue="0" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
 				<List>
 					<Option value="4">Single Color Mode</Option>
 					<Option value="1">Rainbow Mode</Option>
@@ -106,7 +106,7 @@
 		<Field id="BParameter37-Value3" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" defaultValue="0" visibleBindingValue="All-Options" >
 				<Label>Cycle Count 0 Unlimited, Max 254</Label>
 			</Field>
-		<Field id="BParameter37-Value4a" type="textfield" alignWithControl='true' visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
+		<Field id="BParameter37-Value4a" type="textfield" alignWithControl='true' defaultValue="0" visibleBindingId="ledEffect" visibleBindingValue="All-Options" >
 				<Label>tme Base of Color change 0 = 1ms, 1 = 10ms, 2 = 100ms</Label>
 			</Field>
 
