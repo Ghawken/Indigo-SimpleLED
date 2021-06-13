@@ -307,6 +307,11 @@ class Plugin(indigo.PluginBase):
                 Parameter39 = stringpara39Red + stringpara39Green + stringpara39Blue + '00'
                 Parameter39 = int(Parameter39, 16)
                 self.logger.debug('Full-Options:  Parameter 39 Hex:' + unicode(Parameter39))
+            else:
+                Parameter39 = 805306368
+                # If no colours selected - shouldn't run parameter 38 change
+                # but set it to default in case it does
+                self.logger.debug(u'Setting Colours Param Variable to default' + unicode(Parameter39))
 
         if command in ["Choose-Colour-Options" ,'Choose-Colours-Smooth' ,'Choose-Colours-Fade']:
 
