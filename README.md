@@ -3,7 +3,7 @@ Hi all,
 Announcing a very simple new Plugin - 
 **LED Simple Effects**
 
-**For Indigo 7**
+**For Indigo 2022.1.0+ Python3 Version**
 
 Supported Devices:
 - Fibaro RGBW Controller, 441 Model and 442 Model
