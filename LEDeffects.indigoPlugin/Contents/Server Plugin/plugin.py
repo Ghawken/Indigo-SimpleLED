@@ -6,15 +6,9 @@ Author: GlennNZ
 
 """
 
-import datetime
-import time as t
-import urllib2
-import os
-import shutil
-import logging
-import struct
 
-#from ghpu import GitHubPluginUpdater
+import logging
+
 
 try:
     import indigo
@@ -47,7 +41,7 @@ class Plugin(indigo.PluginBase):
             self.logLevel = logging.INFO
 
         self.indigo_log_handler.setLevel(self.logLevel)
-        self.logger.debug(u"logLevel = " + unicode(self.logLevel))
+        self.logger.debug(u"logLevel = " + str(self.logLevel))
 
         self.debugLog(u"Initializing plugin.")
 
@@ -111,11 +105,11 @@ class Plugin(indigo.PluginBase):
 
     def setLEDeffect(self,pluginAction):
 
-        self.logger.debug(unicode(pluginAction))
+        self.logger.debug(str(pluginAction))
 
         command = pluginAction.props.get('ledEffect', False)
         # A List of colours exists with ever device sent - so need to check device needs the list
-        self.logger.debug(unicode(command))
+        self.logger.debug(str(command))
         #   Get colours list
         # concert to int via map
         # sum to get total - which is parameter 38 for those that need it
@@ -132,9 +126,9 @@ class Plugin(indigo.PluginBase):
                 coloursparam = 2271560481
             # If no colours selected - shouldn't run parameter 38 change
             # but set it to default in case it does
-                self.logger.debug(u'Setting Colours Param Variable to default'+unicode(coloursparam))
-            self.logger.debug(u'Selected Colours Parameter equals:'+unicode(coloursparam))
-            self.logger.debug(unicode(colourslist))
+                self.logger.debug(u'Setting Colours Param Variable to default'+str(coloursparam))
+            self.logger.debug(u'Selected Colours Parameter equals:'+str(coloursparam))
+            self.logger.debug(str(colourslist))
         # Now for LED Strip
 
         if command in ['Full-Options']:  # This is for firmware 1.04 ZW098 Bulbs Only
@@ -144,34 +138,34 @@ class Plugin(indigo.PluginBase):
             Value2 = int(pluginAction.props.get('Parameter37-Value2', 0))
             Value3 = int(pluginAction.props.get('Parameter37-Value3', 0))
             Value4 = int(pluginAction.props.get('Parameter37-Value4', 0))
-            self.logger.debug('Full-Options: Value1a'+unicode(Value1a))
+            self.logger.debug('Full-Options: Value1a'+str(Value1a))
 
             stringvalue1a = bin(Value1a)[2:].zfill(2)
-            self.logger.debug('Full-Options:  Value1b:'+unicode(stringvalue1a))
+            self.logger.debug('Full-Options:  Value1b:'+str(stringvalue1a))
             stringvalue1b = bin(Value1b)[2:].zfill(4)
-            self.logger.debug('Full-Options:  Value1b:'+unicode(stringvalue1b))
+            self.logger.debug('Full-Options:  Value1b:'+str(stringvalue1b))
             stringvalue1 = stringvalue1a+'00'+stringvalue1b
-            self.logger.debug('Full-Options:  Value1:' + unicode(stringvalue1))
+            self.logger.debug('Full-Options:  Value1:' + str(stringvalue1))
             HexValue1 ='%0*X' % ((len(stringvalue1) + 3) // 4, int(stringvalue1, 2))
-            self.logger.debug('Full-Options: HexValue1:'+unicode(HexValue1))
+            self.logger.debug('Full-Options: HexValue1:'+str(HexValue1))
 
             stringvalue2 = bin(Value2)[2:].zfill(8)
-            self.logger.debug('Full-Options:  Value2:' + unicode(stringvalue2))
+            self.logger.debug('Full-Options:  Value2:' + str(stringvalue2))
             HexValue2 = '%0*X' % ((len(stringvalue2) + 3) // 4, int(stringvalue2, 2))
-            self.logger.debug('Full-Options: HexValue2:' + unicode(HexValue2))
+            self.logger.debug('Full-Options: HexValue2:' + str(HexValue2))
 
             stringvalue3 = bin(Value3)[2:].zfill(8)
-            self.logger.debug('Full-Options:  Value2:' + unicode(stringvalue3))
+            self.logger.debug('Full-Options:  Value2:' + str(stringvalue3))
             HexValue3 = '%0*X' % ((len(stringvalue3) + 3) // 4, int(stringvalue3, 2))
-            self.logger.debug('Full-Options: HexValue3:' + unicode(HexValue3))
+            self.logger.debug('Full-Options: HexValue3:' + str(HexValue3))
 
             stringvalue4 = bin(Value4)[2:].zfill(8)
-            self.logger.debug('Full-Options:  Value2:' + unicode(stringvalue4))
+            self.logger.debug('Full-Options:  Value2:' + str(stringvalue4))
             HexValue4 = '%0*X' % ((len(stringvalue4) + 3) // 4, int(stringvalue4, 2))
-            self.logger.debug('Full-Options: HexValue4:' + unicode(HexValue4))
+            self.logger.debug('Full-Options: HexValue4:' + str(HexValue4))
             Parameter37= HexValue1+HexValue2+HexValue3+HexValue4
             Parameter37 = int(Parameter37,16)
-            self.logger.debug('Full-Options: Parameter 37: ' + unicode(Parameter37))
+            self.logger.debug('Full-Options: Parameter 37: ' + str(Parameter37))
 
         if command in ['All-Options']:  # This is for firmware 1.05 ZW098 Bulbs and ZW121 Strips
 
@@ -196,80 +190,80 @@ class Plugin(indigo.PluginBase):
             para39Green = int(pluginAction.props.get('BParameter39-Green', 0))
             para39Blue = int(pluginAction.props.get('BParameter39-Blue', 0))
 
-            self.logger.debug('Full-Options: Value1a' + unicode(Value1a))
+            self.logger.debug('Full-Options: Value1a' + str(Value1a))
             stringvalue1a = bin(Value1a)[2:].zfill(2)
 
-            self.logger.debug('Full-Options:  Value1a:' + unicode(stringvalue1a))
+            self.logger.debug('Full-Options:  Value1a:' + str(stringvalue1a))
 
             stringvalue1b = bin(Value1b)[2:].zfill(3)
-            self.logger.debug('Full-Options:  Value1b:' + unicode(stringvalue1b))
+            self.logger.debug('Full-Options:  Value1b:' + str(stringvalue1b))
 
             stringvalue1 = stringvalue1a + '000' + stringvalue1b
 
-            self.logger.debug('Full-Options:  Value1:' + unicode(stringvalue1))
+            self.logger.debug('Full-Options:  Value1:' + str(stringvalue1))
             HexValue1 = '%0*X' % ((len(stringvalue1) + 3) // 4, int(stringvalue1, 2))
-            self.logger.debug('Full-Options: HexValue1:' + unicode(HexValue1))
+            self.logger.debug('Full-Options: HexValue1:' + str(HexValue1))
 
             stringvalue2 = bin(Value2)[2:].zfill(8)
-            self.logger.debug('Full-Options:  Value2:' + unicode(stringvalue2))
+            self.logger.debug('Full-Options:  Value2:' + str(stringvalue2))
 
             HexValue2 = '%0*X' % ((len(stringvalue2) + 3) // 4, int(stringvalue2, 2))
-            self.logger.debug('Full-Options: HexValue2:' + unicode(HexValue2))
+            self.logger.debug('Full-Options: HexValue2:' + str(HexValue2))
 
             stringvalue3 = bin(Value3)[2:].zfill(8)
-            self.logger.debug('Full-Options:  Value2:' + unicode(stringvalue3))
+            self.logger.debug('Full-Options:  Value2:' + str(stringvalue3))
             HexValue3 = '%0*X' % ((len(stringvalue3) + 3) // 4, int(stringvalue3, 2))
-            self.logger.debug('Full-Options: HexValue3:' + unicode(HexValue3))
+            self.logger.debug('Full-Options: HexValue3:' + str(HexValue3))
 
             stringvalue4a = bin(Value4a)[2:].zfill(3)
-            self.logger.debug('Full-Options:  Value4a:' + unicode(stringvalue4a))
+            self.logger.debug('Full-Options:  Value4a:' + str(stringvalue4a))
 
             stringvalue4b = bin(Value4b)[2:].zfill(5)
-            self.logger.debug('Full-Options:  Value4b:' + unicode(stringvalue4b))
+            self.logger.debug('Full-Options:  Value4b:' + str(stringvalue4b))
             stringvalue4 = stringvalue4a +  stringvalue4b
-            self.logger.debug('Full-Options:  Value4:' + unicode(stringvalue4))
+            self.logger.debug('Full-Options:  Value4:' + str(stringvalue4))
 
             HexValue4 = '%0*X' % ((len(stringvalue4) + 3) // 4, int(stringvalue4, 2))
-            self.logger.debug('Full-Options: HexValue4:' + unicode(HexValue4))
+            self.logger.debug('Full-Options: HexValue4:' + str(HexValue4))
             Parameter37 = HexValue1 + HexValue2 + HexValue3 + HexValue4
             Parameter37 = int(Parameter37, 16)
-            self.logger.debug('Full-Options: Parameter 37: ' + unicode(Parameter37))
+            self.logger.debug('Full-Options: Parameter 37: ' + str(Parameter37))
 
-            self.logger.debug('Full-Options: Parameter 38-1:' + unicode(para381))
+            self.logger.debug('Full-Options: Parameter 38-1:' + str(para381))
             stringpara381 = hex(para381)[2:].zfill(2)
-            self.logger.debug('Full-Options:  Parameter 38-1:' + unicode(stringpara381))
+            self.logger.debug('Full-Options:  Parameter 38-1:' + str(stringpara381))
 
-            self.logger.debug('Full-Options: Parameter 38-2:' + unicode(para382))
+            self.logger.debug('Full-Options: Parameter 38-2:' + str(para382))
             stringpara382 = hex(para382)[2:].zfill(2)
-            self.logger.debug('Full-Options:  Parameter 38-1:' + unicode(stringpara382))
+            self.logger.debug('Full-Options:  Parameter 38-1:' + str(stringpara382))
 
-            self.logger.debug('Full-Options: Parameter 38-3:' + unicode(para383))
+            self.logger.debug('Full-Options: Parameter 38-3:' + str(para383))
             stringpara383 = hex(para383)[2:].zfill(2)
-            self.logger.debug('Full-Options:  Parameter 38-3:' + unicode(stringpara383))
+            self.logger.debug('Full-Options:  Parameter 38-3:' + str(stringpara383))
 
-            self.logger.debug('Full-Options: Parameter 38-4:' + unicode(para384))
+            self.logger.debug('Full-Options: Parameter 38-4:' + str(para384))
             stringpara384 = hex(para384)[2:].zfill(2)
-            self.logger.debug('Full-Options:  Parameter 38-4:' + unicode(stringpara384))
+            self.logger.debug('Full-Options:  Parameter 38-4:' + str(stringpara384))
 
             Parameter38 = int(stringpara381+stringpara382+stringpara383+stringpara384,16)
-            self.logger.debug('Full-Options:  Parameter 38:' + unicode(Parameter38))
+            self.logger.debug('Full-Options:  Parameter 38:' + str(Parameter38))
 
             if Value1b==4:  ## Single Colour Mode
-                self.logger.debug('Full-Options: Parameter 39-Red:' + unicode(para39Red))
+                self.logger.debug('Full-Options: Parameter 39-Red:' + str(para39Red))
                 stringpara39Red = hex(para39Red)[2:].zfill(2)
-                self.logger.debug('Full-Options:  Parameter 38-Red:' + unicode(stringpara39Red))
+                self.logger.debug('Full-Options:  Parameter 38-Red:' + str(stringpara39Red))
 
-                self.logger.debug('Full-Options: Parameter 39-Green:' + unicode(para39Green))
+                self.logger.debug('Full-Options: Parameter 39-Green:' + str(para39Green))
                 stringpara39Green = hex(para39Green)[2:].zfill(2)
-                self.logger.debug('Full-Options:  Parameter 38-Green:' + unicode(stringpara39Green))
+                self.logger.debug('Full-Options:  Parameter 38-Green:' + str(stringpara39Green))
 
-                self.logger.debug('Full-Options: Parameter 39-Blue:' + unicode(para39Blue))
+                self.logger.debug('Full-Options: Parameter 39-Blue:' + str(para39Blue))
                 stringpara39Blue = hex(para39Blue)[2:].zfill(2)
-                self.logger.debug('Full-Options:  Parameter 39-Blue:' + unicode(stringpara39Blue))
+                self.logger.debug('Full-Options:  Parameter 39-Blue:' + str(stringpara39Blue))
 
                 Parameter39 = stringpara39Red + stringpara39Green + stringpara39Blue + '00'
                 Parameter39 = int(Parameter39, 16)
-                self.logger.debug('Full-Options:  Parameter 39 Hex:' + unicode(Parameter39))
+                self.logger.debug('Full-Options:  Parameter 39 Hex:' + str(Parameter39))
             elif Value1b==2:
                 self.logger.debug(u'Full Options : Setting Colours and ColourParam based on selected colors')
                 colourslist = []
@@ -281,37 +275,37 @@ class Plugin(indigo.PluginBase):
                 for item in colourslist:
                     colourstring = str(colourstring) + str(item)
                 colourstring = colourstring.ljust(8, '0');
-                self.logger.debug('ColourString Equals:' + unicode(colourstring))
+                self.logger.debug('ColourString Equals:' + str(colourstring))
                 Parameter39 = int(colourstring, 16)
                 if Parameter39 <= 0:
                     Parameter39 = 805306368
                     # If no colours selected - shouldn't run parameter 38 change
                     # but set it to default in case it does
-                    self.logger.debug(u'Setting Colours Param Variable to default' + unicode(Parameter39))
-                self.logger.debug(u'Selected Colours Parameter 39 equals:' + unicode(Parameter39))
-                self.logger.debug(unicode(colourslist))
+                    self.logger.debug(u'Setting Colours Param Variable to default' + str(Parameter39))
+                self.logger.debug(u'Selected Colours Parameter 39 equals:' + str(Parameter39))
+                self.logger.debug(str(colourslist))
             elif Value1b==3: ## Randon Mode set Random Seed
                 self.logger.debug(u'Full Options : Setting Random Seed: Using Red/Green/blue')
-                self.logger.debug('Full-Options: Parameter 39-Random1:' + unicode(para39Red))
+                self.logger.debug('Full-Options: Parameter 39-Random1:' + str(para39Red))
                 stringpara39Red = hex(para39Red)[2:].zfill(2)
-                self.logger.debug('Full-Options:  Parameter 38-Random1:' + unicode(stringpara39Red))
+                self.logger.debug('Full-Options:  Parameter 38-Random1:' + str(stringpara39Red))
 
-                self.logger.debug('Full-Options: Parameter 39-Random2:' + unicode(para39Green))
+                self.logger.debug('Full-Options: Parameter 39-Random2:' + str(para39Green))
                 stringpara39Green = hex(para39Green)[2:].zfill(2)
-                self.logger.debug('Full-Options:  Parameter 38-Random2:' + unicode(stringpara39Green))
+                self.logger.debug('Full-Options:  Parameter 38-Random2:' + str(stringpara39Green))
 
-                self.logger.debug('Full-Options: Parameter 39-Random3:' + unicode(para39Blue))
+                self.logger.debug('Full-Options: Parameter 39-Random3:' + str(para39Blue))
                 stringpara39Blue = hex(para39Blue)[2:].zfill(2)
-                self.logger.debug('Full-Options:  Parameter 39-Random3:' + unicode(stringpara39Blue))
+                self.logger.debug('Full-Options:  Parameter 39-Random3:' + str(stringpara39Blue))
 
                 Parameter39 = stringpara39Red + stringpara39Green + stringpara39Blue + '00'
                 Parameter39 = int(Parameter39, 16)
-                self.logger.debug('Full-Options:  Parameter 39 Hex:' + unicode(Parameter39))
+                self.logger.debug('Full-Options:  Parameter 39 Hex:' + str(Parameter39))
             else:
                 Parameter39 = 805306368
                 # If no colours selected - shouldn't run parameter 38 change
                 # but set it to default in case it does
-                self.logger.debug(u'Setting Colours Param Variable to default' + unicode(Parameter39))
+                self.logger.debug(u'Setting Colours Param Variable to default' + str(Parameter39))
 
         if command in ["Choose-Colour-Options" ,'Choose-Colours-Smooth' ,'Choose-Colours-Fade']:
 
@@ -329,7 +323,7 @@ class Plugin(indigo.PluginBase):
             for item in colourslist:
                 colourstring = str(colourstring) + str(item)
             colourstring = colourstring.ljust(8,'0');
-            self.logger.debug('ColourString Equals:'+unicode(colourstring))
+            self.logger.debug('ColourString Equals:'+str(colourstring))
 
             coloursparam = int(colourstring,16)
 
@@ -337,17 +331,17 @@ class Plugin(indigo.PluginBase):
                 coloursparam = 805306368
                 # If no colours selected - shouldn't run parameter 38 change
                 # but set it to default in case it does
-                self.logger.debug(u'Setting Colours Param Variable to default' + unicode(coloursparam))
-            self.logger.debug(u'Selected Colours Parameter equals:' + unicode(coloursparam))
-            self.logger.debug(unicode(colourslist))
+                self.logger.debug(u'Setting Colours Param Variable to default' + str(coloursparam))
+            self.logger.debug(u'Selected Colours Parameter equals:' + str(coloursparam))
+            self.logger.debug(str(colourslist))
 
 
         devId = pluginAction.deviceId
         dev = indigo.devices[devId]
         zwMajor = int(dev.ownerProps['zwAppVersMajor'])
         zwMinor = int(dev.ownerProps['zwAppVersMinor'])
-        self.logger.debug(u'Device Model is:'+unicode(dev.model))
-        self.logger.debug(u'Firmware equals:'+unicode(zwMajor) + "."+unicode(zwMinor))
+        self.logger.debug(u'Device Model is:'+str(dev.model))
+        self.logger.debug(u'Firmware equals:'+str(zwMajor) + "."+str(zwMinor))
 
         if not command:
             self.logger.error(u"No Command to Execute was specified in action for \"" + dev.name + "\"")
@@ -358,101 +352,101 @@ class Plugin(indigo.PluginBase):
 
         if dev.model == 'RGBW Controller (FGRGBWM)' or dev.model=="RGBW Controller (FGRGBWM441)":  #Double check!
             if command=="Rainbow":
-                self.logger.debug(u'Rainbow Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Rainbow Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=8)
             if command=="Fireplace":
-                self.logger.debug(u'FirePlace Set on device:'+unicode(dev.name))
+                self.logger.debug(u'FirePlace Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=6)
             if command=="Storm":
-                self.logger.debug(u'Storm Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Storm Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=7)
             if command=="Aurora":
-                self.logger.debug(u'Aurora Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Aurora Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=9)
             if command=="LPD":
-                self.logger.debug(u'LPD Set on device:'+unicode(dev.name))
+                self.logger.debug(u'LPD Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=10)
             if command=="Default":
-                self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Default Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=72,paramSize=1,paramValue=1)
         elif dev.model == "RGBW Controller (FGRGBW442)":   # Double check!
             if command == "Rainbow":
-                self.logger.debug(u'Rainbow Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Rainbow Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=8)
             if command == "Fireplace":
-                self.logger.debug(u'FirePlace Set on device:' + unicode(dev.name))
+                self.logger.debug(u'FirePlace Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=6)
             if command == "Storm":
-                self.logger.debug(u'Storm Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Storm Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=7)
             if command == "Aurora":
-                self.logger.debug(u'Aurora Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Aurora Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=9)
             if command == "LPD":
-                self.logger.debug(u'LPD Set on device:' + unicode(dev.name))
+                self.logger.debug(u'LPD Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=10)
             if command == "Default":
-                self.logger.debug(u'Default Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Default Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=0)
 
         elif dev.model == "RGBW Controller (FGRGBWM442)":   # Double check!
             if command == "Rainbow":
-                self.logger.debug(u'Rainbow Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Rainbow Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=8)
             if command == "Fireplace":
-                self.logger.debug(u'FirePlace Set on device:' + unicode(dev.name))
+                self.logger.debug(u'FirePlace Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=6)
             if command == "Storm":
-                self.logger.debug(u'Storm Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Storm Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=7)
             if command == "Aurora":
-                self.logger.debug(u'Aurora Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Aurora Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=9)
             if command == "LPD":
-                self.logger.debug(u'LPD Set on device:' + unicode(dev.name))
+                self.logger.debug(u'LPD Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=10)
             if command == "Default":
-                self.logger.debug(u'Default Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Default Set on device:' + str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=157, paramSize=1, paramValue=0)
 
         elif dev.model == 'RGBW LED Strip (ZW121)':
             if command=="Rainbow":
-                self.logger.debug(u'Rainbow Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Rainbow Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=40,paramSize=1,paramValue=1)
             if command == "All-Options":
-                self.logger.debug(u'Setting all Options Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Setting all Options Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=Parameter37)
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=Parameter38)
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=Parameter39)
             if command == "Choose-Colour-Options":
-                self.logger.debug(u'Choose Colours Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Choose Colours Set on device:' + str(dev.name))
                 #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
-                self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
+                self.logger.debug(u'ColoursParam is now:'+str(coloursparam))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=1241514063)
                 self.sleep(1)
                 # send the selected colours - so mode above and colour choice below.
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=coloursparam)
                 #indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=40, paramSize=1,paramValue=2)
             if command == "Rainbow-2":
-                self.logger.debug(u'"Rainbow-2 & Turn On" Set on device:' + unicode(dev.name))
+                self.logger.debug(u'"Rainbow-2 & Turn On" Set on device:' + str(dev.name))
                 #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
-                self.logger.debug(u'ColoursParam is :'+unicode(coloursparam))
+                self.logger.debug(u'ColoursParam is :'+str(coloursparam))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=150994944 )
                 self.sleep(1)
             if command == "Rainbow-Slow Fade":
-                self.logger.debug(u'Rainbow-Slow Fade Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Rainbow-Slow Fade Set on device:' + str(dev.name))
                 #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
-                self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
+                self.logger.debug(u'ColoursParam is now:'+str(coloursparam))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=1224736847 )
                 self.sleep(1)
             if command == "Rainbow-Medium Fade":
-                self.logger.debug(u'Rainbow-Medium Fade Set on device:' + unicode(dev.name))
+                self.logger.debug(u'Rainbow-Medium Fade Set on device:' + str(dev.name))
                 #coloursparam = struct.unpack('<H', struct.pack('>H',coloursparam))[0]
-                self.logger.debug(u'ColoursParam is now:'+unicode(coloursparam))
+                self.logger.debug(u'ColoursParam is now:'+str(coloursparam))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=1224736815)
                 self.sleep(1)
             if command=="Default":
-                self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                self.logger.debug(u'Default Set on device:'+str(dev.name))
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=40,paramSize=1,paramValue=0)
                 indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=157483008)
                 #indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=50332416)
@@ -462,69 +456,69 @@ class Plugin(indigo.PluginBase):
         elif dev.model == 'RGBW LED Bulb (ZW098)':
             if int(zwMinor)==4:   # select firmware 1.4
                 if command=="Rainbow-Fast":
-                    self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
+                    self.logger.debug(u'Rainbow-Fast Set on device:'+str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=16782386)
                     # send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Rainbow-Slow":
-                    self.logger.debug(u'Rainbow-Slower Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Rainbow-Slower Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=16782436)
                     #indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=6291457)
                     # send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=coloursparam)
                 if command == "Random-Fast":
-                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Random-fast Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=50336818 )
                     # send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Random-Slow":
-                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Random-fast Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=50336868 )
                     #send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Choose-Colours-Fast":
-                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Random-fast Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4,paramValue=33559602  )
                     # send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Choose-Colours-Slow":
-                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Random-fast Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=33559652 )
                     #send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
                 if command == "Default":
-                    self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                    self.logger.debug(u'Default Set on device:'+str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=3840)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=2271560481)
                 if command == "Full-Options":
-                    self.logger.debug(u'Setting all Options Set on device:'+unicode(dev.name))
+                    self.logger.debug(u'Setting all Options Set on device:'+str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=Parameter37)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=coloursparam)
             elif int(zwMinor)>=5:   # select firmware 1.5 ?
                 if command=="Rainbow-Fast":
-                    self.logger.debug(u'Rainbow-Fast Set on device:'+unicode(dev.name))
+                    self.logger.debug(u'Rainbow-Fast Set on device:'+str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265374 )
                     # send the selected colours - so mode above and colour choice below.
                 if command == "Rainbow-Slow":
-                    self.logger.debug(u'Rainbow-Slower Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Rainbow-Slower Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=23265310)
                 if command == "Default":
-                    self.logger.debug(u'Default Set on device:'+unicode(dev.name))
+                    self.logger.debug(u'Default Set on device:'+str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=6488064)
                 if command == "Choose-Colours-Smooth":
-                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Random-fast Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue=40042528 )
                     #send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4,paramValue=50593791)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=coloursparam)
                 if command == "Choose-Colours-Fade":
-                    self.logger.debug(u'Random-fast Set on device:' + unicode(dev.name))
+                    self.logger.debug(u'Random-fast Set on device:' + str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=37, paramSize=4, paramValue= 42630020 )
                     # send the selected colours - so mode above and colour choice below.
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=50593791)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,  paramValue=coloursparam)
                 if command == "All-Options":
-                    self.logger.debug(u'Setting all Options Set on device:'+unicode(dev.name))
+                    self.logger.debug(u'Setting all Options Set on device:'+str(dev.name))
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId],paramIndex=37,paramSize=4,paramValue=Parameter37)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=38, paramSize=4, paramValue=Parameter38)
                     indigo.zwave.sendConfigParm(device=indigo.devices[devId], paramIndex=39, paramSize=4,paramValue=Parameter39)
@@ -535,18 +529,18 @@ class Plugin(indigo.PluginBase):
 
         theList = []
         device = indigo.devices[deviceId]
-        #self.logger.debug(u'Device Details'+unicode(device))
-        #self.logger.debug(unicode(device.model))
+        #self.logger.debug(u'Device Details'+str(device))
+        #self.logger.debug(str(device.model))
         zwMajor = int(device.ownerProps['zwAppVersMajor'])
         zwMinor = int(device.ownerProps['zwAppVersMinor'])
 ## testing below TODO remove when done!
         #theList.append(('All-Options', 'All-Options'))
 
-        self.logger.debug(u'Device Model is:'+unicode(device.model))
-        self.logger.debug(u'Firmware equals:'+unicode(zwMajor) + "."+unicode(zwMinor))
+        self.logger.debug(u'Device Model is:'+str(device.model))
+        self.logger.debug(u'Firmware equals:'+str(zwMajor) + "."+str(zwMinor))
 
         if 'RGBW Controller (FGRGBWM)' in device.model:  ## old version reported by Indigo of 441 Fibaro RGB
-            self.logger.debug(unicode(device.model))
+            self.logger.debug(str(device.model))
             theList.append(("Rainbow","Rainbow"))
             theList.append(("Fireplace","Fireplace"))
             theList.append(("Storm","Storm"))
@@ -554,7 +548,7 @@ class Plugin(indigo.PluginBase):
             theList.append(("LPD","LPD"))
             theList.append(("Default","Default"))
         elif 'RGBW Controller (FGRGBWM441)' in device.model:  ## new version reported by Indigo of 441 Fibaro RGB
-            self.logger.debug(unicode(device.model))
+            self.logger.debug(str(device.model))
             theList.append(("Rainbow","Rainbow"))
             theList.append(("Fireplace","Fireplace"))
             theList.append(("Storm","Storm"))
@@ -562,7 +556,7 @@ class Plugin(indigo.PluginBase):
             theList.append(("LPD","LPD"))
             theList.append(("Default","Default"))
         elif 'RGBW Controller (FGRGBW442)' in device.model:  ## new 442 version reported by Indigo of 442 Fibaro RGB
-            self.logger.debug(unicode(device.model))
+            self.logger.debug(str(device.model))
             theList.append(("Rainbow","Rainbow"))
             theList.append(("Fireplace","Fireplace"))
             theList.append(("Storm","Storm"))
@@ -570,7 +564,7 @@ class Plugin(indigo.PluginBase):
             theList.append(("LPD","LPD"))
             theList.append(("Default","Default"))
         elif 'RGBW Controller (FGRGBWM442)' in device.model:  ## new 442 version reported by Indigo of 442 Fibaro RGB
-            self.logger.debug(unicode(device.model))
+            self.logger.debug(str(device.model))
             theList.append(("Rainbow","Rainbow"))
             theList.append(("Fireplace","Fireplace"))
             theList.append(("Storm","Storm"))
@@ -578,7 +572,7 @@ class Plugin(indigo.PluginBase):
             theList.append(("LPD","LPD"))
             theList.append(("Default","Default"))
         elif device.model == 'RGBW LED Strip (ZW121)':
-            self.logger.debug(unicode(device.model))
+            self.logger.debug(str(device.model))
             theList.append(("Rainbow","Rainbow & Turn On"))
             theList.append(("Rainbow-2", "Rainbow-2 & Turn On"))
             theList.append(("Rainbow-Slow Fade", "Rainbow-Slow Fade & Turn On"))
@@ -588,7 +582,7 @@ class Plugin(indigo.PluginBase):
             theList.append(("Default","Default & Turn Off"))
         elif device.model == 'RGBW LED Bulb (ZW098)':
             if int(zwMinor) == 4:  # only for firmware 1.4 versions
-                self.logger.debug(unicode(device.model))
+                self.logger.debug(str(device.model))
                 theList.append(("Rainbow-Fast","Rainbow-Fast"))
                 theList.append(("Rainbow-Slow","Rainbow-Slow"))
                 theList.append(('Random-Fast','Random-Fast'))
@@ -598,7 +592,7 @@ class Plugin(indigo.PluginBase):
                 theList.append(('Full-Options','Full-Options'))
                 theList.append(("Default","Default"))
             if int(zwMinor) >= 5:  # only for firmware 1.6 versions
-                self.logger.debug(unicode(device.model))
+                self.logger.debug(str(device.model))
                 theList.append(("Rainbow-Fast","Rainbow-Fast"))  #
                 theList.append(("Rainbow-Slow","Rainbow-Slow"))
                 theList.append(('Choose-Colours-Smooth','Choose-Colours-Smooth'))
